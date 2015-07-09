@@ -39,9 +39,41 @@ end
 
 def merge_sort(array)
 
-  
+  if array.length == 1 
+    array
+
+  else
+    array_left = array[0..(array.length)/2 - 1]
+    array_right = array[(array.length)/2..-1]
+
+    merge_sort (array_left)
+    merge_sort (array_right)
+
+  end
+
+  merge(array_left, array_right)
 
 end
+
+def merge(left, right) #([5],[3])
+
+  sorted_array = []
+
+  (0..left.length-1) do |i|
+    (0..right.length-1) do |j|
+
+      if left[i] < right[j]
+        sorted_array << left[i]
+      else
+        sorted_array << right[j]
+      end
+
+    end
+  end
+
+end
+
+
 
 
 
