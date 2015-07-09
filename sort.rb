@@ -37,21 +37,26 @@ end
 # puts bubble_sort([1,3,7,2,5])
 
 
-def merge_sort(array)
-
-  if array.length == 1 
-    array
+def merge_sort(array, count = 0)
+  
+  if array.length <= 1 
+    return array
 
   else
     array_left = array[0..(array.length)/2 - 1]
     array_right = array[(array.length)/2..-1]
+    print "left: "
+    puts array_left.inspect
+    print "right: "
+    puts array_right.inspect
 
-    merge_sort (array_left)
-    merge_sort (array_right)
+    array_left = merge_sort(array_left, (count + 1))
+    array_right = merge_sort(array_right, (count + 1))
+    print "mergesort called #{count} times \n"
+    merge(array_left, array_right)
 
   end
 
-  merge(array_left, array_right)
 
 end
 
@@ -59,20 +64,29 @@ def merge(left, right) #([5],[3])
 
   sorted_array = []
 
-  (0..left.length-1) do |i|
-    (0..right.length-1) do |j|
-
-      if left[i] < right[j]
-        sorted_array << left[i]
-      else
-        sorted_array << right[j]
-      end
-
+  # (0..right.length-1) do |j|
+  until left.nil? || right.nil?
+    puts "merge"
+    puts left.inspect
+    puts right.inspect
+    if left[0] < right[0]
+      sorted_array << left.shift
+    else
+      sorted_array << right.shift
     end
+
   end
+
+  if !left.empty?
+    sorted_array << left[0]
+  else
+    sorted_array << right[0]
+  end
+  puts sorted_array.inspect
 
 end
 
+puts merge_sort([1,3,7,2,5])
 
 
 
